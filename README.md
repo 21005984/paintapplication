@@ -43,116 +43,193 @@ Publish the website in the given URL.
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Application</title>
+    <title>Paint Application</title>
+
     <style>
-        .maincontainer{
-            text-align: center;
-        }
-        body{
-            background-color: palegoldenrod;
-        }
-        canvas{
-            background-color: white;
-        }
+        *{
+   box-sizing: border-box; 
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body{
+    background-image: url("/static/img/bgimg5.png");
+    background-size: cover;
+}
+
+h1{
+    color: rgb(52, 12, 90);
+    text-align: center;
+    padding-top: 15px;
+}
+
+.container{
+    width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+canvas{
+    background-color: rgb(238, 216, 236);
+    box-shadow: inset 0 0 5px #e5b9ee;
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+}
+
+.newshape{
+    background-color:#25A3A1;
+    border: 2px solid rgb(161, 146, 168);
+    border-radius: 25px;
+    color: rgb(52, 12, 90);
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.footer{
+    text-align: center;
+    color: rgb(52, 12, 90);
+    text-align: center;
+    font-size: x-large;
+}
+
+#cypher{
+    border: 2px solid #ffffff;
+    border-radius: 30px;
+    padding: 25px 25px;
+    text-align: center;
+    display: inline-block;
+    font-size:25px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
     </style>
 
-<script type="text/javascript">
-var shape;
-var color;
+
+    <script type="text/javascript">
+        function change_color(element){
+    choose=element.style.background;
+}
 function myClickEvent(e){
-        var ctx = c.getContext("2d");
-        ctx.beginPath();
-        if(color==1){
-            ctx.strokeStyle='red';
-        }else if(color==2){
-            ctx.strokeStyle='yellow';
-        }else if(color==3){
-            ctx.strokeStyle='blue';
-        }
-        if(shape == 0){
-            ctx.arc(e.offsetX,e.offsetY, 45, 0, 2 * Math.PI);
-            ctx.stroke();
-            
-        }else if(shape == 1){
-
-            ctx.moveTo(75, 50);
-            ctx.lineTo(100, 75);
-            ctx.lineTo(100, 25);
-            ctx.closePath();
-            ctx.stroke();
-        }else if(shape==2){
-            ctx.rect(e.offsetX,e.offsetY, 150, 100);
-            ctx.stroke();
-
-
-        }else if(shape==3){
-            ctx.rect(e.offsetX, e.offsetY, 50, 50);
-            ctx.stroke();
-        }
+    var message;
+    ctx.beginPath();
+    if (shape == 0){
+        ctx.arc(e.offsetX, e.offsetY, 20, 0, 2* Math.PI);
+        ctx.strokeStyle = choose;
+        ctx.linewidth = 5;
+    } else if (shape == 1){
+        ctx.rect(e.offsetX, e.offsetY, 35,35);
+        ctx.strokeStyle = choose;
+        ctx.linewidth = 5;
+    } else if (shape == 2){
+        ctx.moveTo(e.offsetX, e.offsetY);
+        ctx.lineTo(e.offsetX+(t/2), e.offsetY-(t*0.86602));
+        ctx.lineTo(e.offsetX-(t/2), e.offsetY-(t*0.86602));
+        ctx.lineTo(e.offsetX,e.offsetY);
+        ctx.strokeStyle = choose;
+        ctx.linewidth = 5;
+    } else if (shape == 3){
+        ctx.rect(e.offsetX, e.offsetY, 70, 35);
+        ctx.strokeStyle = choose;
+        ctx.linewidth = 5;
+    } else if (shape == 4){
+        ctx.moveTo(e.offsetX, e.offsetY);
+        ctx.lineTo(e.offsetX, e.offsetY-(s/2));
+        ctx.strokeStyle = choose;
+        ctx.linewidth = 5;
     }
 
-        function circleClicked(){
-            shape=0;
-        }
-        function triangleClicked(){
-            shape=1;
-        }
-        function rectangleClicked(){
-            shape=2;
-        }
-        function squareClicked(){
-            shape=3;
-        }
-        function redClicked(){
-            color=1;
-        }
-        function blueClicked(){
-            color=3;
-        }
-        function yellowClicked(){
-            color=2;
-        }
+    ctx.stroke();
+}
 
-</script>
+function circleclicked() {
+    shape=0;
+}
+
+function squareclicked() {
+    shape=1;
+}
+
+function triangleclicked() {
+    shape=2;
+}
+
+function rectclicked() {
+    shape=3;
+}
+
+function lineclicked() {
+    shape=4;
+}
+    </script>
+
+
 </head>
 <body>
-    <div class="maincontainer">
-        <h1><u>Canvas Drawing Application</u></h1>
-    <canvas id="myCanvas" width="800" height="400" style="border:1px solid #000000"></canvas>
-    <div>
-        <input type="button" id="circle" value="Circle">
-        <input type="button" id="line" value="Triangle">
-        <input type="button" id="rectangle" value="Rectangle">
-        <input type="button" id="square" value="Square">
-        
-    </div>
-    <div>
-        <input type="button" id="red" value="Red">
-        <input type="button" id="blue" value="Blue">
-        <input type="button" id="yellow" value="Yellow">
-    </div>
-        <script type ="text/javascript">
-            var c = document.getElementById("myCanvas");
-            c.addEventListener("click", myClickEvent);
-            document.getElementById("circle").addEventListener("click", circleClicked);
-            document.getElementById("line").addEventListener("click",  triangleClicked);
-            document.getElementById("rectangle").addEventListener("click",rectangleClicked);
-            document.getElementById("square").addEventListener("click",squareClicked);
-            document.getElementById("red").addEventListener("click",redClicked);
-            document.getElementById("blue").addEventListener("click",blueClicked);
-            document.getElementById("yellow").addEventListener("click",yellowClicked);
-           
-        </script>
-        <div class="footer">
-          Developed by Meiyarasi.V
+    <h1>Paint Application</h1>
+    <div class="container">
+        <div class="content">
+            <canvas id="myCanvas" width="1050" height="650"></canvas>
         </div>
+        <br/>
+        <center>
+            <input type="button" class="newshape" id="circle" value="Circle">
+            <input type="button" class="newshape" id="square" value="Square">
+            <input type="button" class="newshape" id="triangle" value="Triangle">
+            <input type="button" class="newshape" id="rectangle" value="Rectangle">
+            <input type="button" class="newshape" id="line" value="Line">
+        </center>
+        <br/>
+        <center>
+            <button onclick="change_color(this)" id="cypher" style="background: white;"></button>
+            <button onclick="change_color(this)" id="cypher" style="background: rgb(49, 231, 255);"></button>
+            <button onclick="change_color(this)" id="cypher" style="background: rgb(46, 112, 255);"></button>
+            <button onclick="change_color(this)" id="cypher" style="background: rgb(213, 76, 255);"></button>
+            <button onclick="change_color(this)" id="cypher" style="background: rgb(153, 0, 255);"></button>
+            <button onclick="change_color(this)" id="cypher" style="background: rgb(54, 0, 124);"></button>
+            <button onclick="change_color(this)" id="cypher" style="background: rgb(0, 0, 0);"></button>
+        </center>
+    </div>
+    <br/>
+    <center>
+    <div class="footer">Developed by Meiyarasi.V </div>
+    </center>
+    <script type="text/javascript">
+        var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+shape=0;
+let choose="#000000";
+let t=50;
+let s=120;
+ctx.beginPath();
+ctx.stroke();
+c.addEventListener("click", myClickEvent);
+document
+.getElementById("circle")
+.addEventListener("click", circleclicked);
+document
+.getElementById("square")
+.addEventListener("click", squareclicked);
+document
+.getElementById("triangle")
+.addEventListener("click", triangleclicked);
+document
+.getElementById("rectangle")
+.addEventListener("click", rectclicked);
+document
+.getElementById("line")
+.addEventListener("click", lineclicked);
+    </script>
+    
 </body>
 </html>
-
 ## OUTPUT:
 
 -- include your output screenshots ---
-![output](.//A1.png)
+![output](.//Q1.png)
 
 ## Result:
 
